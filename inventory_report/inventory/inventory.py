@@ -1,47 +1,20 @@
-from pathlib import Path
-
-from inventory_report.importer.csv_importer import CsvImporter
-from inventory_report.importer.json_importer import JsonImporter
-from inventory_report.importer.xml_importer import XmlImporter
-from inventory_report.reports.complete_report import CompleteReport
-from inventory_report.reports.simple_report import SimpleReport
+from inventory_report.helpers.infer_report_task import infer_report_task
 
 
 class Inventory():
     @classmethod
     def import_data(cls, filepath: str, report_type: str) -> str:
-        """Importa um relatório de um arquivo.
+        """Prints an inventory report from inventory file
 
-        Parâmetros:
-        filepath (str): caminho para o arquivo de relatório.
-            Formatos aceitos: .csv, .json e .xls
-        report_type (str): tipo de relatório a gerar.
-            Pode ser "simples" ou "completo".
+        Parameters:
+        - filepath (str): path to inventory file. Supported formats are
+                          .csv, .json and .xls
+        - report_type (str): "simples" or "completo".
 
-        Retorna:
-        str: Relatório
+        Returns:
+        str: Report
         """
+        importer, report = infer_report_task(filepath, report_type)
+        products = importer.import_data(filepath)
 
-        IMPORTERS = {
-            '.csv': CsvImporter,
-            '.json': JsonImporter,
-            '.xml': XmlImporter
-        }
-
-        REPORTS = {
-            'simples': SimpleReport,
-            'completo': CompleteReport
-        }
-
-        if report_type not in REPORTS.keys():
-            raise ValueError(f'"{report_type}" é um tipo de relatório '
-                             'desconhecido. Use "simples" ou "completo".')
-
-        suffix = Path(filepath).suffix
-        if suffix not in IMPORTERS.keys():
-            raise ValueError(f'Formato de relatório inválido: {suffix}. '
-                             'Use arquivos .csv, .json ou .xls')
-
-        products = IMPORTERS[suffix].import_data(filepath)
-
-        return REPORTS[report_type].generate(products)
+        return report.generate(products)

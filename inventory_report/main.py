@@ -1,12 +1,18 @@
-import sys
-from pathlib import Path
+#!/usr/bin/env python
+"""Prints inventory report
 
-from inventory_report.importer.csv_importer import CsvImporter
-from inventory_report.importer.json_importer import JsonImporter
-from inventory_report.importer.xml_importer import XmlImporter
+Parameters:
+1) Filepath to inventory (suported formats: .csv, .json and .xml)
+2) Report type: "simples" or "completo"
+
+Examples:
+$ inventory_report data/inventory.json completo
+$ python main.py data/inventory.xml simples
+"""
+import sys
+
+from inventory_report.helpers.infer_report_task import infer_report_task
 from inventory_report.inventory.inventory_refactor import InventoryRefactor
-from inventory_report.reports.complete_report import CompleteReport
-from inventory_report.reports.simple_report import SimpleReport
 
 
 def main():
@@ -17,30 +23,10 @@ def main():
     filepath = sys.argv[1]
     report_type = sys.argv[2]
 
-    IMPORTERS = {
-        '.csv': CsvImporter,
-        '.json': JsonImporter,
-        '.xml': XmlImporter
-    }
+    importer, report = infer_report_task(filepath, report_type)
 
-    REPORTS = {
-        'simples': SimpleReport,
-        'completo': CompleteReport
-    }
-
-    if report_type not in REPORTS.keys():
-        raise ValueError(f'"{report_type}" é um tipo de relatório '
-                         'desconhecido. Use "simples" ou "completo".')
-
-    suffix = Path(filepath).suffix
-    if suffix not in IMPORTERS.keys():
-        raise ValueError(f'Formato de relatório inválido: {suffix}. '
-                         'Use arquivos .csv, .json ou .xls')
-
-    importer = IMPORTERS[suffix]()
-    inventory = InventoryRefactor(importer)
-    products = inventory.import_data(filepath)
-    print(REPORTS[report_type].generate(products))
+    products = InventoryRefactor(importer).import_data(filepath, None)
+    print(report.generate(products), end='')
 
 
 if __name__ == '__main__':
