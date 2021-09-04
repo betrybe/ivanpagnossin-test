@@ -42,8 +42,6 @@ class Inventory():
             raise ValueError(f'Formato de relatório inválido: {suffix}. '
                              'Use arquivos .csv, .json ou .xls')
 
-        products = \
-            IMPORTERS[suffix]() \
-            .import_data(filepath)
+        products = IMPORTERS[suffix].import_data(filepath)
 
         return REPORTS[report_type].generate(products)

@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractclassmethod
 
 
 class Importer(ABC):
-    @abstractmethod
-    def import_data(self, filepath: str) -> list:
+    @abstractclassmethod
+    def import_data(cls, filepath: str) -> list:
         """Gera uma lista de produtos a partir de um arquivo de estoque.
 
         Parâmetros:

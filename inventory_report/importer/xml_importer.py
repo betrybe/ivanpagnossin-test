@@ -6,7 +6,8 @@ from inventory_report.models.product import Product
 
 
 class XmlImporter(Importer):
-    def import_data(self, filepath: str) -> list:
+    @classmethod
+    def import_data(cls, filepath: str) -> list:
         check_unsupported_file(filepath, '.xml')
 
         fields = Product.__fields__.keys()

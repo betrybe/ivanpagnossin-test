@@ -6,7 +6,8 @@ from inventory_report.models.product import Product
 
 
 class CsvImporter(Importer):
-    def import_data(self, filepath):
+    @classmethod
+    def import_data(cls, filepath: str) -> list:
         check_unsupported_file(filepath, '.csv')
 
         with open(filepath, 'r') as csv_file:
