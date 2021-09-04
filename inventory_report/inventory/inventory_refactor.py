@@ -1,5 +1,8 @@
+from typing import List
+
 from inventory_report.importer.importer import Importer
 from inventory_report.inventory.inventory_iterator import InventoryIterator
+from inventory_report.models.product import ProductDict
 
 
 class InventoryRefactor:
@@ -9,7 +12,8 @@ class InventoryRefactor:
         self.importer = importer
         self.data = []
 
-    def import_data(self, filepath: str, report_type: str) -> list:
+    def import_data(self, filepath: str,
+                    report_type: str) -> List[ProductDict]:
         """Load inventory.
 
         Parameters:
@@ -17,7 +21,7 @@ class InventoryRefactor:
         - report_type: not used
 
         Returns:
-        None
+        List of products in inventory.
         """
         self.data += self.importer.import_data(filepath)
         return self.data

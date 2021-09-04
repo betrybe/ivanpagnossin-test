@@ -1,6 +1,10 @@
 from datetime import date
+from typing import Dict
 
 from pydantic import BaseModel
+
+
+ProductDict = Dict[str, str]
 
 
 class CanonicalDate(date):
@@ -17,7 +21,7 @@ class Product(BaseModel):
     numero_de_serie: str
     instrucoes_de_armazenamento: str
 
-    def as_dict(self) -> dict:
+    def as_dict(self) -> ProductDict:
         """Representação dict de um Product"""
 
         product = dict(self)

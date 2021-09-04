@@ -1,13 +1,14 @@
 import xml.etree.ElementTree as ET
+from typing import List
 
 from inventory_report.helpers.validators import check_unsupported_file
 from inventory_report.importer.importer import Importer
-from inventory_report.models.product import Product
+from inventory_report.models.product import Product, ProductDict
 
 
 class XmlImporter(Importer):
     @classmethod
-    def import_data(cls, filepath: str) -> list:
+    def import_data(cls, filepath: str) -> List[ProductDict]:
         check_unsupported_file(filepath, ['.xml'])
 
         fields = Product.__fields__.keys()

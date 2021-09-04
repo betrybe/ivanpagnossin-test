@@ -1,12 +1,14 @@
+from typing import List
+
 from inventory_report.helpers.ordered_counter import OrderedCounter
-from inventory_report.models.product import Product
+from inventory_report.models.product import Product, ProductDict
 
 from .simple_report import SimpleReport
 
 
 class CompleteReport(SimpleReport):
     @classmethod
-    def generate(cls, products: list) -> str:
+    def generate(cls, products: List[ProductDict]) -> str:
         if not products:
             return cls.__empty_report()
 

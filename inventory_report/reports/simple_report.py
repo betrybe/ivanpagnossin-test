@@ -1,14 +1,15 @@
 from collections import Counter
 from datetime import date
+from typing import List
 
-from inventory_report.models.product import Product
-from inventory_report.reports.report import Report
+from inventory_report.models.product import Product, ProductDict
 from inventory_report.reports.empty_report import EmptyReportMixin
+from inventory_report.reports.report import Report
 
 
 class SimpleReport(Report, EmptyReportMixin):
     @classmethod
-    def generate(cls, products: list) -> str:
+    def generate(cls, products: List[ProductDict]) -> str:
         if not products:
             return cls.__empty_report()
 
