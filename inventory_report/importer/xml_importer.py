@@ -1,0 +1,23 @@
+import xml.etree.ElementTree as ET
+from typing import List
+
+from inventory_report.helpers.validators import check_unsupported_file
+from inventory_report.importer.importer import Importer
+from inventory_report.models.product import Product, ProductDict
+
+
+class XmlImporter(Importer):
+    """An inventory importer for inventory files in the XML format."""
+
+    @classmethod
+    def import_data(cls, filepath: str) -> List[ProductDict]:
+        check_unsupported_file(filepath, ['.xml'])
+
+        fields = Product.__fields__.keys()
+        tree = ET.parse(filepath)
+        products = [
+            Product(**{f: product.find(f).text for f in fields}).as_dict()
+            for product in tree.getroot()
+        ]
+
+        return products
