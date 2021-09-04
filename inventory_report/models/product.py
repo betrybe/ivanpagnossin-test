@@ -9,7 +9,7 @@ class CanonicalDate(date):
 
 
 class Product(BaseModel):
-    id: int
+    id: str
     nome_do_produto: str
     nome_da_empresa: str
     data_de_fabricacao: CanonicalDate
