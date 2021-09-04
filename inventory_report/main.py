@@ -13,7 +13,7 @@ $ inventory_report data/inventory.json completo
 """
 import sys
 
-from .helpers.infer_report_task import infer_report_task
+from .resolvers.inventory_resolver import inventory_resolver
 from .inventory.inventory_refactor import InventoryRefactor
 
 
@@ -25,7 +25,7 @@ def main():
     filepath = sys.argv[1]
     report_type = sys.argv[2]
 
-    importer, report = infer_report_task(filepath, report_type)
+    importer, report = inventory_resolver(filepath, report_type)
 
     products = InventoryRefactor(importer).import_data(filepath, None)
     print(report.generate(products), end='')

@@ -1,7 +1,7 @@
-from inventory_report.helpers.infer_report_task import infer_report_task
+from inventory_report.resolvers.inventory_resolver import inventory_resolver
 
 
-class Inventory():
+class Inventory:
     """Interface to interact with inventory files."""
 
     @classmethod
@@ -20,7 +20,7 @@ class Inventory():
         - ValueError: if the inventory file format is unsupported or if the
           desired report type is unknown.
         """
-        importer, report = infer_report_task(filepath, report_type)
+        importer, report = inventory_resolver(filepath, report_type)
         products = importer.import_data(filepath)
 
         return report.generate(products)
