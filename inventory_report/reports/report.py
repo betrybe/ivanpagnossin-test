@@ -5,13 +5,15 @@ from inventory_report.models.product import Product
 
 
 class Report(ABC):
+    """Interface for inventory reports."""
+
     @abstractclassmethod
     def generate(cls, products: List[Product]) -> str:
         """Generates report in string format.
 
         Parameters:
-        - products: List of products.
+        - products: list of products.
 
         Returns:
-        str: A string representation of the inventory report.
+        A string representation of the inventory report.
         """

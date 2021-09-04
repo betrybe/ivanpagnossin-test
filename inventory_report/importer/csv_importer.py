@@ -7,6 +7,8 @@ from inventory_report.models.product import Product, ProductDict
 
 
 class CsvImporter(Importer):
+    """An inventory importer for inventory files in the CSV format."""
+
     @classmethod
     def import_data(cls, filepath: str) -> List[ProductDict]:
         check_unsupported_file(filepath, ['.csv'])

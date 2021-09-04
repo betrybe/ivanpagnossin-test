@@ -14,6 +14,21 @@ from .validators import check_unsupported_file
 
 def infer_report_task(filepath: str, report_type: str) -> Tuple[Importer,
                                                                 Report]:
+    """Decides about importer and report type from user inputs.
+
+    Parameters:
+    - filepath: path to the inventory file.
+    - report_type: desired report type.
+
+    Returns:
+    The correct Importer for the given inventory file and the Report for the
+    desired report type.
+
+    Exceptions:
+    - ValueError: if user provides unsupported inventory file or unknwon
+      desired report type.
+    """
+
     IMPORTERS: Dict[str, Importer] = {
         '.csv': CsvImporter,
         '.json': JsonImporter,

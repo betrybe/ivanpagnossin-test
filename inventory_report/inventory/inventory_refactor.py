@@ -6,7 +6,7 @@ from inventory_report.models.product import ProductDict
 
 
 class InventoryRefactor:
-    """An iterable Inventory"""
+    """An iterable Inventory."""
 
     def __init__(self, importer: Importer):
         self.importer = importer

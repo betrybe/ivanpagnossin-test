@@ -3,14 +3,17 @@ from typing import List
 
 
 def check_unsupported_file(filepath: str, suffixes: List[str]) -> None:
-    """Raises ValueError if filepath does not have the expected suffix.
+    """Check if file matches any of the expected suffixes.
 
     Parameters:
-    - filepath: Path to a file.
-    - suffixes: List of expected suffixes (e.g., [".csv"]).
+    - filepath: path to a file.
+    - suffixes: list of expected suffixes (e.g., [".csv"]).
 
     Returns:
     None
+
+    Exceptions:
+    - ValueError: if file does not match any of the expected suffix.
     """
 
     suffix = Path(filepath).suffix

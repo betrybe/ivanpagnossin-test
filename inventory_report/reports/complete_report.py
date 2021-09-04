@@ -7,6 +7,8 @@ from .simple_report import SimpleReport
 
 
 class CompleteReport(SimpleReport):
+    """A complete inventory report."""
+
     @classmethod
     def generate(cls, products: List[ProductDict]) -> str:
         if not products:

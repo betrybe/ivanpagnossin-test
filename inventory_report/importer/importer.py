@@ -5,13 +5,15 @@ from inventory_report.models.product import ProductDict
 
 
 class Importer(ABC):
+    """Interface for inventory importers."""
+
     @abstractclassmethod
     def import_data(cls, filepath: str) -> List[ProductDict]:
-        """Gera uma lista de produtos a partir de um arquivo de estoque.
+        """Creates a list of products from an inventory file.
 
-        Parâmetros:
-        - filepath (str): caminho para o arquivo de estoque.
+        Parameters:
+        - filepath: path to the inventory file.
 
-        Retorna:
-        list: Lista de produtos.
+        Returns:
+        List of products.
         """

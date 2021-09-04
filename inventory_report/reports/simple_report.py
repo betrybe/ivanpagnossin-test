@@ -8,6 +8,8 @@ from inventory_report.reports.report import Report
 
 
 class SimpleReport(Report, EmptyReportMixin):
+    """An inventory summary report."""
+
     @classmethod
     def generate(cls, products: List[ProductDict]) -> str:
         if not products:

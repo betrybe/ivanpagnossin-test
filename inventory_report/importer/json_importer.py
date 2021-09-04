@@ -7,6 +7,8 @@ from inventory_report.models.product import ProductDict
 
 
 class JsonImporter(Importer):
+    """An inventory importer for inventory files in the JSON format."""
+
     @classmethod
     def import_data(cls, filepath: str) -> List[ProductDict]:
         check_unsupported_file(filepath, ['.json'])

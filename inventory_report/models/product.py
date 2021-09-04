@@ -8,11 +8,15 @@ ProductDict = Dict[str, str]
 
 
 class CanonicalDate(date):
+    """A date with convenient string representation."""
+
     def __repr__(self):
         return self.strftime('%Y-%m-%d')
 
 
 class Product(BaseModel):
+    """A single product in inventory."""
+
     id: str
     nome_do_produto: str
     nome_da_empresa: str
@@ -22,7 +26,7 @@ class Product(BaseModel):
     instrucoes_de_armazenamento: str
 
     def as_dict(self) -> ProductDict:
-        """Representação dict de um Product"""
+        """Dict representation of a Product with dates as strings"""
 
         product = dict(self)
 
