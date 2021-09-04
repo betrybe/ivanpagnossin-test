@@ -7,16 +7,6 @@ from .simple_report import SimpleReport
 class CompleteReport(SimpleReport):
     @classmethod
     def generate(cls, products: list) -> str:
-        """Generates report in string format.
-
-        Parameters:
-        products (list): List of products, each product a dictionary
-        conforming inventory_report.models.product.Product
-
-        Returns:
-        str: Complete report
-        """
-
         if not products:
             return cls.__empty_report()
 
@@ -36,7 +26,3 @@ class CompleteReport(SimpleReport):
         complete_report += '\n'
 
         return complete_report
-
-    @classmethod
-    def __empty_report(cls):
-        return ''

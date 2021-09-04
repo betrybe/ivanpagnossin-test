@@ -2,23 +2,15 @@ from collections import Counter
 from datetime import date
 
 from inventory_report.models.product import Product
+from inventory_report.reports.report import Report
+from inventory_report.reports.empty_report import EmptyReportMixin
 
 
-class SimpleReport:
+class SimpleReport(Report, EmptyReportMixin):
     @classmethod
     def generate(cls, products: list) -> str:
-        """Generates report in string format.
-
-        Parameters:
-        products (list): List of products, each product a dictionary
-        conforming inventory_report.models.product.Product
-
-        Returns:
-        str: Report
-        """
-
         if not products:
-            return cls.__pretty_print_report()
+            return cls.__empty_report()
 
         _products = [Product(**p) for p in products]
 
@@ -52,12 +44,12 @@ class SimpleReport:
                                          closest_due_date, most_common_company)
 
     @classmethod
-    def __pretty_print_report(cls, oldest_manufacturing_date='?',
-                              closest_due_date='?', most_common_company='?'):
+    def __pretty_print_report(cls, oldest_manufacturing_date,
+                              closest_due_date, most_common_company):
 
         return (
             f'Data de fabricação mais antiga: {oldest_manufacturing_date}\n'
             f'Data de validade mais próxima: {closest_due_date}\n'
-            'Empresa com maior quantidade de produtos '
-            f'estocados: {most_common_company}\n'
+            'Empresa com maior quantidade de produtos estocados: '
+            f'{most_common_company}\n'
         )
