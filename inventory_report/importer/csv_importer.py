@@ -1,17 +1,13 @@
 import csv
-from pathlib import Path
 
+from inventory_report.helpers.validators import check_unsupported_file
 from inventory_report.importer.importer import Importer
 from inventory_report.models.product import Product
 
 
 class CsvImporter(Importer):
     def import_data(self, filepath):
-
-        suffix = Path(filepath).suffix
-        if suffix != '.csv':
-            raise ValueError('Este importador não é capaz de lidar com '
-                             f'arquivos {suffix}.')
+        check_unsupported_file(filepath, '.csv')
 
         with open(filepath, 'r') as csv_file:
             reader = csv.reader(csv_file)
